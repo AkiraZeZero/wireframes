@@ -1,12 +1,12 @@
-import './App.css';
-import Calculator from './Components/Calculator/Calculator';
+import "./App.css";
+import Calculator from "./Components/Calculator/Calculator";
 
 function App() {
   return (
     <div className="App">
-      APP LANDING PAGE
-      <Calculator/>
-    </div>
+      <h1>Here Are Some Wireframes I've Made</h1>
+      <Calculator />
+      </div>
   );
 }
 
