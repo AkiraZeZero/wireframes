@@ -14,6 +14,13 @@ export const ACTIONS = {
 function reducer(state, { type, payload }) {
   switch (type) {
     case ACTIONS.ADD_DIGIT:
+      if (state.overwrite){
+        return {
+          ...state,
+          currentOperand: payload.digit,
+          overwrite: false,
+        }
+      }
       if (payload.digit === "0" && state.currentOperand === "0") {
         return state;
       }
@@ -28,6 +35,12 @@ function reducer(state, { type, payload }) {
       if (state.currentOperand == null && state.previousOperand == null) {
         return state;
       }
+      if (state.currentOperand == null) {
+        return {
+          ...state,
+          operation: payload.operation,
+        };
+      }
       if (state.previousOperand == null) {
         return {
           ...state,
@@ -38,10 +51,35 @@ function reducer(state, { type, payload }) {
       }
       return {
         ...state,
-        previousOperand: state,
+        previousOperand: equal(state),
+        operation: payload.operation,
+        currentOperand: null,
       };
     case ACTIONS.CLEAR:
       return {};
+    case ACTIONS.DELETE_DIGIT:
+      if (state.overwrite) {
+        return {
+          ...state,
+          overwrite: false,
+          currentOperand: null
+        }
+      }
+    case ACTIONS.EQUAL:
+      if (
+        state.operation == null ||
+        state.currentOperand == null ||
+        state.previousOperand == null
+      ){
+        return state
+      }
+      return {
+        ...state,
+        overwrite: true,
+        previousOperand: null,
+        operation: null,
+        currentOperand: equal(state),
+      }
   }
 }
 
@@ -63,8 +101,8 @@ function equal({ currentOperand, previousOperand, operation }) {
     case "÷":
       computation = prev / current;
       break;
-    }
-    return computation.toString()
+  }
+  return computation.toString();
 }
 
 // reducer allows us to manage our state
@@ -109,7 +147,7 @@ const Calculator = () => {
         <OperationButton operation="-" dispatch={dispatch} />
         <DigitButton digit="." dispatch={dispatch} />
         <DigitButton digit="0" dispatch={dispatch} />
-        <button className="spanTwo">=</button>
+        <button className="spanTwo" onClick={() => dispatch({ type: ACTIONS.EQUAL })}>=</button>
       </div>
     </div>
   );
