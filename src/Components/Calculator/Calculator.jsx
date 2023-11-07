@@ -14,12 +14,12 @@ export const ACTIONS = {
 function reducer(state, { type, payload }) {
   switch (type) {
     case ACTIONS.ADD_DIGIT:
-      if (state.overwrite){
+      if (state.overwrite) {
         return {
           ...state,
           currentOperand: payload.digit,
           overwrite: false,
-        }
+        };
       }
       if (payload.digit === "0" && state.currentOperand === "0") {
         return state;
@@ -62,24 +62,24 @@ function reducer(state, { type, payload }) {
         return {
           ...state,
           overwrite: false,
-          currentOperand: null
-        }
+          currentOperand: null,
+        };
       }
-      if (state.currentOperand == null) return state
+      if (state.currentOperand == null) return state;
       if (state.currentOperand.length === 1) {
-        return {...state, currentOperand: null}
+        return { ...state, currentOperand: null };
       }
       return {
         ...state,
-        currentOperand: state.currentOperand.slice(0, -1)
-      }
+        currentOperand: state.currentOperand.slice(0, -1),
+      };
     case ACTIONS.EQUAL:
       if (
         state.operation == null ||
         state.currentOperand == null ||
         state.previousOperand == null
-      ){
-        return state
+      ) {
+        return state;
       }
       return {
         ...state,
@@ -87,7 +87,7 @@ function reducer(state, { type, payload }) {
         previousOperand: null,
         operation: null,
         currentOperand: equal(state),
-      }
+      };
   }
 }
 
@@ -118,12 +118,12 @@ function equal({ currentOperand, previousOperand, operation }) {
 
 const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
   maximumFractionDigits: 0,
-})
+});
 function formatOperand(operand) {
-  if (operand == null) return
-  const [integer, decimal] = operand.split('.')
-  if (decimal == null) return INTEGER_FORMATTER.format(integer)
-  return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
+  if (operand == null) return;
+  const [integer, decimal] = operand.split(".");
+  if (decimal == null) return INTEGER_FORMATTER.format(integer);
+  return `${INTEGER_FORMATTER.format(integer)}.${decimal}`;
 }
 
 const Calculator = () => {
@@ -133,8 +133,8 @@ const Calculator = () => {
   );
 
   return (
-    <div>
-      <h1>Calculator</h1>
+    <div className="calculatorBody">
+      <h1>Here is my Calculator!</h1>
       <div className="calculatorGrid">
         <div className="output">
           <div className="previousOperand">
@@ -149,7 +149,9 @@ const Calculator = () => {
         >
           AC
         </button>
-        <button onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT})}>DEL</button>
+        <button onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT })}>
+          DEL
+        </button>
         <OperationButton operation="÷" dispatch={dispatch} />
         <DigitButton digit="1" dispatch={dispatch} />
         <DigitButton digit="2" dispatch={dispatch} />
@@ -165,7 +167,12 @@ const Calculator = () => {
         <OperationButton operation="-" dispatch={dispatch} />
         <DigitButton digit="." dispatch={dispatch} />
         <DigitButton digit="0" dispatch={dispatch} />
-        <button className="spanTwo" onClick={() => dispatch({ type: ACTIONS.EQUAL })}>=</button>
+        <button
+          className="spanTwo"
+          onClick={() => dispatch({ type: ACTIONS.EQUAL })}
+        >
+          =
+        </button>
       </div>
     </div>
   );

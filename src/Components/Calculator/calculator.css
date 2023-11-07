@@ -2,7 +2,7 @@
     box-sizing: border-box;
 }
 
-body {
+.calculatorBody {
     margin: 0;
     background: linear-gradient(to right, yellow, coral);
 }
