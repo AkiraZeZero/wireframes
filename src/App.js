@@ -10,11 +10,19 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          Home Pg
-          <Routes>
-            <Route exact path="/" element={<LandingPg />} />
-            <Route exact path="/calculator" element={<Calculator />} />
+             <br/>
+             <h1 className="title">
+          WIREFRAMES
+          </h1>
+          <h3 className="author">
+          By: Kiara Ocasio-Rosado
+          </h3>
+            <Routes>
+            {/* <Route exact path="/" element={<LandingPg />} /> */}
+            {/* <Route exact path="/" element={<Calculator />} /> */}
           </Routes>
+          
+          
         </div>
       </Router>
     );
