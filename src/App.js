@@ -11,7 +11,7 @@ import { Slide } from 'react-slideshow-image';
 import LandingPg from "./Components/LandingPg/LandingPg";
 import Calculator from "./Components/Calculator/Calculator";
 import Slider from "./Components/Slider/Slider";
-
+import Socials from "./Socials";
 
 
 class App extends Component {
@@ -34,6 +34,11 @@ class App extends Component {
             <Route exact path="/" element={<Calculator />} />
           </Routes>
       </Router> */}
+      <br></br>
+      <footer>
+        Designed & Coded By: Kiara Ocasio-Rosado
+        {/* <Socials/> */}
+      </footer>
         </div>
     );
   }
